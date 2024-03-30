@@ -30,6 +30,7 @@ import dev.drawethree.xprison.ranks.XPrisonRanks;
 import dev.drawethree.xprison.tokens.XPrisonTokens;
 import dev.drawethree.xprison.utils.Constants;
 import dev.drawethree.xprison.utils.compat.CompMaterial;
+import dev.drawethree.xprison.utils.economy.EconomyUtils;
 import dev.drawethree.xprison.utils.misc.SkullUtils;
 import dev.drawethree.xprison.utils.text.TextUtils;
 import lombok.Getter;
@@ -126,6 +127,7 @@ public final class XPrison extends ExtendedJavaPlugin {
 		this.startMetrics();
 
 		SkullUtils.init();
+		EconomyUtils.init();
 	}
 
 	private void printOnEnableMessage() {
