@@ -1,5 +1,6 @@
 package dev.drawethree.xprison.enchants.model.impl;
 
+import com.cryptomorin.xseries.XEnchantment;
 import dev.drawethree.xprison.enchants.XPrisonEnchants;
 import dev.drawethree.xprison.enchants.model.XPrisonEnchantment;
 import dev.drawethree.xprison.utils.compat.CompMaterial;
@@ -26,7 +27,7 @@ public final class FortuneEnchant extends XPrisonEnchantment {
     @Override
     public void onEquip(Player p, ItemStack pickAxe, int level) {
         ItemMeta meta = pickAxe.getItemMeta();
-        meta.removeEnchant(Enchantment.LOOT_BONUS_BLOCKS);
+        meta.removeEnchant(XEnchantment.FORTUNE.getEnchant());
         pickAxe.setItemMeta(meta);
     }
 

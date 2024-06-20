@@ -50,11 +50,7 @@ import java.util.function.Consumer;
  */
 @NonnullByDefault
 public final class ItemStackBuilder {
-	private static final ItemFlag[] ALL_FLAGS = new ItemFlag[]{
-			ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES,
-			ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_POTION_EFFECTS,
-			ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_PLACED_ON
-	};
+	private static final ItemFlag[] ALL_FLAGS = ItemFlag.values();
 
 	private final ItemStack itemStack;
 
