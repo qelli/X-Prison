@@ -10,6 +10,7 @@ import me.lucko.helper.serialize.Point;
 import me.lucko.helper.serialize.Position;
 import me.lucko.helper.serialize.Region;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import java.util.List;
 import java.util.Map;
@@ -41,15 +42,24 @@ public final class MineResetLiteMigration extends MinesMigration<Mine> {
 		String name = mine.getName();
 		builder.name(name);
 
+		final Map<String, Object> map = mine.serialize();
+
 		//Region
-		Position minPoint = Position.of(mine.getMinX(), mine.getMinY(), mine.getMinZ(), mine.getWorld());
-		Position maxPoint = Position.of(mine.getMaxX(), mine.getMaxY(), mine.getMaxZ(), mine.getWorld());
+		Position minPoint = Position.of((int) map.get("minX"), (int) map.get("minY"), (int) map.get("minZ"), mine.getWorld());
+		Position maxPoint = Position.of((int) map.get("maxX"), (int) map.get("maxY"), (int) map.get("maxZ"), mine.getWorld());
 		Region region = minPoint.regionWith(maxPoint);
 		builder.region(region);
 
 		//Teleport location
-		if (mine.getTpPos() != null) {
-			Point teleportLocation = Point.of(mine.getTpPos());
+		if (map.containsKey("tpX") && map.containsKey("tpY") && map.containsKey("tpZ")) {
+			final Location tpPos = new Location(mine.getWorld(), (int) map.get("tpX"), (int) map.get("tpY"), (int) map.get("tpZ"));
+			if (map.containsKey("tpYaw")) {
+				tpPos.setYaw((int) map.get("tpYaw"));
+			}
+			if (map.containsKey("tpPitch")) {
+				tpPos.setPitch((int) map.get("tpPitch"));
+			}
+			Point teleportLocation = Point.of(tpPos);
 			builder.teleportLocation(teleportLocation);
 		}
 
@@ -58,7 +68,7 @@ public final class MineResetLiteMigration extends MinesMigration<Mine> {
 
 		for (Map.Entry<SerializableBlock, Double> entry : mine.getComposition().entrySet()) {
 			double chance = entry.getValue();
-			CompMaterial material = CompMaterial.fromId(entry.getKey().getBlockId(), entry.getKey().getData());
+			CompMaterial material = CompMaterial.fromString(entry.getKey().getBlockId().split(":")[0]);
 			blockPalette.addToPalette(material, chance);
 		}
 
