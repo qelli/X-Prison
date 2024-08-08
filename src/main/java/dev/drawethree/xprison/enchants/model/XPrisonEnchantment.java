@@ -25,6 +25,7 @@ public abstract class XPrisonEnchantment implements Refundable {
 	private String nameUncolor;
 	private String guiName;
 	private String base64;
+	private String tokenType;
 	private Material material;
 	private List<String> description;
 	private boolean enabled;
@@ -47,6 +48,7 @@ public abstract class XPrisonEnchantment implements Refundable {
 	}
 
 	private void reloadDefaultAttributes() {
+		this.tokenType = this.plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".TokenType","token").toLowerCase();
 		this.rawName = this.plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".RawName");
 		this.name = TextUtils.applyColor(this.plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".Name"));
 		this.nameUncolor = this.name.replaceAll("§.", "");

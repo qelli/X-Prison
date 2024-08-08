@@ -9,6 +9,11 @@ messages:
   enchant_refunded: "&e&lREFUND &8» &7You have refunded &f%amount% &7levels of %enchant%"
   enchant_tokens_back: "&e&lREFUND &8» &7You have received &f%tokens% &7tokens back."
   enchant_cant_disenchant: "&c&l(!) &cThis enchant can't be disenchanted."
+  not_enough_gems: "&cYou do not have enough gems!"
+  enchant_bought_gems: "&e&lENCHANT &8» &c&l-%tokens% gems"
+  enchant_bought_multiple_gems: "&e&lENCHANT &8» &7You have bought &f%amount% &7levels
+      of %enchant%&r &7for &f%tokens% &7gems."
+  enchant_gems_back: "&e&lREFUND &8» &7You have received &f%tokens% &7gems back."
   enchant_no_level: "&e&l(!) &cYou do not have this enchant!"
   charity_other: "&a&l+ $%amount% &7(From %player%'s Charity)"
   charity_your: "&a&l+ $%amount% &7(From Your Charity)"

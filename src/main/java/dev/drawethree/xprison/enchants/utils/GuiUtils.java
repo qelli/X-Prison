@@ -25,7 +25,9 @@ public class GuiUtils {
                     .replace("%max_level%", enchantment.getMaxLevel() == Integer.MAX_VALUE ? "Unlimited" : String.format("%,d", enchantment.getMaxLevel()))
                     .replace("%chance%", String.format("%,.2f", enchantment.getChanceToTrigger(currentLevel)))
                     .replace("%current_level%", String.format("%,d", currentLevel))
+                    .replace("%token_type%", enchantment.getTokenType().equals("token") ? "Token": "Gem")
                     .replace("%pickaxe_level%", String.format("%,d", enchantment.getRequiredPickaxeLevel())));
+
         }
         return newList;
     }
