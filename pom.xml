@@ -37,6 +37,13 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Paperweight-Mappings-Namespace>mojang</Paperweight-Mappings-Namespace>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
                             <minimizeJar>true</minimizeJar>
                             <relocations>
                                 <relocation>
