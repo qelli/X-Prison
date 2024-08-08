@@ -582,7 +582,7 @@ public class EnchantsManager {
 			this.setEnchantLevel(target, pickaxe, entry.getKey(), entry.getValue());
 		}
 
-		pickaxe = this.applyLoreToPickaxe(target, pickaxe);
+		this.applyLoreToPickaxe(target, pickaxe);
 
 		if (target == null && sender instanceof Player) {
 			target = (Player) sender;
@@ -620,7 +620,7 @@ public class EnchantsManager {
 				XPrisonEnchantment enchantment = getEnchantsRepository().getEnchantByName(data[0]);
 				int level = Integer.parseInt(data[1]);
 				this.setEnchantLevel(player, item, enchantment, level);
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 
 			}
 		}
