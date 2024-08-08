@@ -1,5 +1,6 @@
 package dev.drawethree.xprison.enchants.model.impl;
 
+import com.cryptomorin.xseries.XSound;
 import dev.drawethree.ultrabackpacks.api.UltraBackpacksAPI;
 import dev.drawethree.xprison.enchants.XPrisonEnchants;
 import dev.drawethree.xprison.enchants.api.events.ExplosionTriggerEvent;
@@ -17,7 +18,6 @@ import me.lucko.helper.Events;
 import me.lucko.helper.time.Time;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -37,7 +37,7 @@ public final class ExplosiveEnchant extends XPrisonEnchantment {
     private boolean useEvents;
     private ExplosionBlockProvider blockProvider;
     private final boolean soundEnable;
-    private final String sound;
+    private final XSound sound;
     private final long volume;
     private final long pitch;
 
@@ -49,7 +49,7 @@ public final class ExplosiveEnchant extends XPrisonEnchantment {
         this.useEvents = plugin.getEnchantsConfig().getYamlConfig().getBoolean("enchants." + id + ".Use-Events");
         this.blockProvider = this.loadBlockProvider();
         this.soundEnable = plugin.getEnchantsConfig().getYamlConfig().getBoolean("enchants." + id + ".Sound.Enable");
-        this.sound = plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".Sound.Sound");
+        this.sound = XSound.matchXSound(plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".Sound.Sound", "NONE")).orElse(null);
         this.volume = plugin.getEnchantsConfig().getYamlConfig().getLong("enchants." + id + ".Sound.Volume");
         this.pitch = plugin.getEnchantsConfig().getYamlConfig().getLong("enchants." + id + ".Sound.Pitch");
     }
@@ -192,8 +192,8 @@ public final class ExplosiveEnchant extends XPrisonEnchantment {
         if (this.plugin.isAutoSellModuleEnabled()) {
             plugin.getCore().getAutoSell().getManager().addToCurrentEarnings(p, total);
         }
-        if (soundEnable) {
-            p.playSound(p.getLocation(), Sound.valueOf(sound), volume, pitch);
+        if (soundEnable && sound != null) {
+            sound.play(p, volume, pitch);
         }
     }
 
