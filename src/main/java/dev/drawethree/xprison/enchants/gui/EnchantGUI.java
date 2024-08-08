@@ -96,7 +96,7 @@ public final class EnchantGUI extends Gui {
 
 		Collection<XPrisonEnchantment> allEnchants = this.plugin.getEnchantsRepository().getAll();
 		for (XPrisonEnchantment enchantment : allEnchants) {
-			if (!enchantment.isEnabled()) {
+			if (!enchantment.isEnabled() || !enchantment.isShopEnabled()) {
 				continue;
 			}
 			int level = XPrisonEnchants.getInstance().getEnchantsManager().getEnchantLevel(this.pickAxe, enchantment);
