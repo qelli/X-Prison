@@ -64,7 +64,7 @@ public class GangsManager {
 		});
 	}
 
-	private void saveDataOnDisable() {
+	public void saveDataOnDisable() {
 		for (Gang g : this.gangs.values()) {
 			this.plugin.getGangsService().updateGang(g);
 		}

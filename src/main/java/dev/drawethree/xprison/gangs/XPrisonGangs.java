@@ -15,6 +15,7 @@ import dev.drawethree.xprison.gangs.repo.GangsRepository;
 import dev.drawethree.xprison.gangs.repo.impl.GangsRepositoryImpl;
 import dev.drawethree.xprison.gangs.service.GangsService;
 import dev.drawethree.xprison.gangs.service.impl.GangsServiceImpl;
+import dev.drawethree.xprison.gangs.task.SaveDataTask;
 import lombok.Getter;
 
 public final class XPrisonGangs implements XPrisonModule {
@@ -47,6 +48,8 @@ public final class XPrisonGangs implements XPrisonModule {
 
 	@Getter
 	private GangsService gangsService;
+
+	private SaveDataTask saveDataTask;
 
 	private boolean enabled;
 
@@ -89,6 +92,9 @@ public final class XPrisonGangs implements XPrisonModule {
 		this.gangUpdateTopTask = new GangUpdateTopTask(this, this.gangTopProvider);
 		this.gangUpdateTopTask.start();
 
+		this.saveDataTask = new SaveDataTask(this);
+		this.saveDataTask.start();
+
 
 		this.api = new XPrisonGangsAPIImpl(this.gangsManager);
 
@@ -100,6 +106,7 @@ public final class XPrisonGangs implements XPrisonModule {
 	public void disable() {
 		this.gangsManager.disable();
 		this.gangUpdateTopTask.stop();
+		this.saveDataTask.stop();
 		this.enabled = false;
 	}
 

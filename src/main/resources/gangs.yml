@@ -10,6 +10,8 @@ color-codes-in-gang-name: true
 gang-chat-priority: LOW
 # Can players in the same gang hit each other ?
 gang-friendly-fire: false
+# Interval in minutes for saving gang data into database
+data-save-interval: 0
 # PAPI/MVdW Placeholders replacements
 placeholders:
   gang-without: '&c✗'

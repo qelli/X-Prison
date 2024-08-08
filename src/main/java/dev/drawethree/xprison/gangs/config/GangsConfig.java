@@ -39,6 +39,8 @@ public class GangsConfig {
 	@Getter
 	private int maxGangNameLength;
 	@Getter
+	private int saveDataInterval;
+	@Getter
 	private boolean enableColorCodes;
 	@Getter
 	private boolean gangFriendlyFire;
@@ -78,6 +80,7 @@ public class GangsConfig {
 		this.gangUpdateDelay = this.getYamlConfig().getInt("gang-top-update", 1);
 		this.maxGangMembers = this.getYamlConfig().getInt("max-gang-members", 10);
 		this.maxGangNameLength = this.getYamlConfig().getInt("max-gang-name-length", 10);
+		this.saveDataInterval = this.getYamlConfig().getInt("data-save-interval", 10);
 		this.enableColorCodes = this.getYamlConfig().getBoolean("color-codes-in-gang-name");
 		this.gangFriendlyFire = this.getYamlConfig().getBoolean("gang-friendly-fire");
 		this.gangChatPriority = EventPriority.valueOf(this.getYamlConfig().getString("gang-chat-priority"));
