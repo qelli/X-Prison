@@ -71,6 +71,10 @@
                                     <pattern>net.objecthunter.exp4j</pattern>
                                     <shadedPattern>${project.groupId}.libs.exp4j</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.lang3</pattern>
+                                    <shadedPattern>${project.groupId}.libs.commons.lang</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -121,12 +125,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.21-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.26</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -213,6 +211,11 @@
             <groupId>com.github.lalyos</groupId>
             <artifactId>jfiglet</artifactId>
             <version>0.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.16.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
