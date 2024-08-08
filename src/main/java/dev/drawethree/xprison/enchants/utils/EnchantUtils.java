@@ -40,7 +40,7 @@ public final class EnchantUtils {
     }
 
     public static int getDurability(ItemStack item, ItemMeta meta) {
-        if (ServerInstance.isLegacy) {
+        if (ServerInstance.Release.LEGACY) {
             return item.getDurability();
         } else if (meta instanceof Damageable) {
             return ((Damageable) meta).getDamage();
