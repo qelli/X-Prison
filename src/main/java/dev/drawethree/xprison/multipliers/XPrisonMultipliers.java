@@ -363,7 +363,7 @@ public final class XPrisonMultipliers implements XPrisonModule {
 						try {
 							timeUnit = TimeUnit.valueOf(c.rawArg(3).toUpperCase());
 						} catch (IllegalArgumentException e) {
-							PlayerUtils.sendMessage(c.sender(), "&cInvalid time unit! Please use one from: " + StringUtils.join(TimeUnit.values(), ","));
+							PlayerUtils.sendMessage(c.sender(), "&cInvalid time unit! Please use one from: " + StringUtils.join(TimeUnit.values(), ", "));
 							return;
 						}
 

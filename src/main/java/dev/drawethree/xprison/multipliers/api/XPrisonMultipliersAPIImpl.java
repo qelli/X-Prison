@@ -61,7 +61,7 @@ public final class XPrisonMultipliersAPIImpl implements XPrisonMultipliersAPI {
 					toReturn += tokenMulti.getMultiplier();
 				}
 				if (!this.getGlobalTokenMultiplier().isExpired()) {
-					toReturn += this.getGlobalSellMultiplier().getMultiplier();
+					toReturn += this.getGlobalTokenMultiplier().getMultiplier();
 				}
 				break;
 		}
