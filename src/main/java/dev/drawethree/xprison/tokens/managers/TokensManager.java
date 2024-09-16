@@ -244,7 +244,7 @@ public class TokensManager {
 
 	public synchronized long getPlayerTokens(OfflinePlayer p) {
 		if (!p.isOnline()) {
-			return this.plugin.getTokensManager().getPlayerTokens(p);
+			return this.plugin.getTokensService().getTokens(p);
 		} else {
 			return tokensCache.getOrDefault(p.getUniqueId(), (long) 0);
 		}
