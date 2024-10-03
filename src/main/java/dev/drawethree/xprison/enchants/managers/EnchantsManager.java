@@ -569,7 +569,7 @@ public class EnchantsManager {
 	}
 
 	// /givepickaxe <player> <enchant:18=1;...> <name>
-	public void givePickaxe(Player target, Map<XPrisonEnchantment, Integer> enchants, String pickaxeName, CommandSender sender) {
+	public void givePickaxe(Player target, Map<XPrisonEnchantment, Integer> enchants, String pickaxeName, CommandSender sender, int level, int blocks) {
 		ItemStackBuilder pickaxeBuilder = ItemStackBuilder.of(Material.DIAMOND_PICKAXE);
 
 		if (pickaxeName != null) {
@@ -583,6 +583,15 @@ public class EnchantsManager {
 		}
 
 		this.applyLoreToPickaxe(target, pickaxe);
+
+		if (level > 0) {
+			final PrisonItem pItem = new PrisonItem(pickaxe);
+			pItem.setLevel(level);
+			if (blocks > 0) {
+				pItem.addBrokenBlocks(blocks);
+			}
+			pickaxe = pItem.load();
+		}
 
 		if (target == null && sender instanceof Player) {
 			target = (Player) sender;

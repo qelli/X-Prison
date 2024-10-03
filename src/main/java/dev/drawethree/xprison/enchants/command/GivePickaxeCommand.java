@@ -6,6 +6,7 @@ import dev.drawethree.xprison.enchants.repo.EnchantsRepository;
 import dev.drawethree.xprison.utils.player.PlayerUtils;
 import me.lucko.helper.Commands;
 import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -25,33 +26,67 @@ public class GivePickaxeCommand {
 				.handler(c -> {
 
 					if (c.args().size() == 0) {
-						PlayerUtils.sendMessage(c.sender(), "&c/givepickaxe <player> <[enchant1]=[level1],[enchant2]=[level2],...[enchantX]=[levelX]> <pickaxe_name>");
+						PlayerUtils.sendMessage(c.sender(), "&c/givepickaxe <player> [<enchant1>=<level1>,<enchant2>=<level2>,...<enchantX>=<levelX>] [pickaxe_name] [level] [blocks]");
 						return;
 					}
 
-					String input = null, name = null;
 					Player target = null;
+					String input = null;
+					String name = null;
+					int level = -1;
+					int blocks = -1;
 
-					if (c.args().size() == 1) {
-						input = c.rawArg(0);
-					} else if (c.args().size() == 2) {
-						target = c.arg(0).parseOrFail(Player.class);
-						input = c.rawArg(1);
-					} else if (c.args().size() >= 3) {
-						target = c.arg(0).parseOrFail(Player.class);
-						input = c.rawArg(1);
-						name = StringUtils.join(c.args().subList(2, c.args().size()), " ");
+					for (int index = 0; index < c.args().size(); index++) {
+						final String arg = c.args().get(index);
+						if (index == 0) {
+							target = Bukkit.getPlayer(arg);
+							continue;
+						}
+						if (index == 1 && arg.contains("=")) {
+							input = arg;
+							continue;
+						}
+						if (name == null && index <= 2 && !isNumber(arg)) {
+							name = arg;
+							continue;
+						}
+						if (level < 0 && index <= 3 && isNumber(arg)) {
+							level = Integer.parseInt(arg);
+							continue;
+						}
+						if (blocks < 0 && index <= 4 && isNumber(arg)) {
+							blocks = Integer.parseInt(arg);
+							continue;
+						}
+
+						if (input == null && arg.contains("=")) {
+							input = arg;
+						} else if (name == null) {
+							name = arg;
+						}
 					}
 
 					Map<XPrisonEnchantment, Integer> enchants = parseEnchantsFromInput(input);
 
-					this.plugin.getEnchantsManager().givePickaxe(target, enchants, name, c.sender());
+					this.plugin.getEnchantsManager().givePickaxe(target, enchants, name, c.sender(), level, blocks);
 				}).registerAndBind(this.plugin.getCore(), "givepickaxe");
+	}
+
+	private boolean isNumber(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 
 	private Map<XPrisonEnchantment, Integer> parseEnchantsFromInput(String input) {
 		Map<XPrisonEnchantment, Integer> enchants = new HashMap<>();
+		if (input == null) {
+			return enchants;
+		}
 
 		String[] split = input.split(",");
 		for (String s : split) {
