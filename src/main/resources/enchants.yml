@@ -611,6 +611,27 @@ enchants:
       Enabled: true
       InGuiSlot: 49
       Percentage: 50.0
+  '24':
+    RawName: 'luck'
+    Name: '&6Luck'
+    GuiName: '&6Luck'
+    Material: BOOK
+    Enabled: true
+    InGuiSlot: 50
+    Increase-Cost-by: 6
+    Max: 500
+    Chance: 0.0001
+    Cost: 12
+    OnActivate: 'Are you feeling lucky?'
+    OnDeactivate: 'Your luck wore off.'
+    DisableMessages: false
+    Multiplier: 1.5
+    Description:
+      - 'Chance of increasing the other enchantments percentages'
+    Refund:
+      Enabled: true
+      InGuiSlot: 50
+      Percentage: 50.0
 # Format of every pickaxe that has UPC Enchants on it
 # %Enchant-X% represents the name + level of specific enchant (X = id)
 Pickaxe:
@@ -648,6 +669,7 @@ Pickaxe:
     - '%Enchant-21%'
     - '%Enchant-22%'
     - '%Enchant-23%'
+    - '%Enchant-24%'
 # First Join Pickaxe Settings
 first-join-pickaxe:
   # Should we give this pickaxe to players when they first join?
