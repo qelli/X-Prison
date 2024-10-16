@@ -1,6 +1,7 @@
 package dev.drawethree.xprison.enchants.model;
 
 import dev.drawethree.xprison.enchants.XPrisonEnchants;
+import dev.drawethree.xprison.enchants.model.impl.LuckEnchant;
 import dev.drawethree.xprison.pickaxelevels.XPrisonPickaxeLevels;
 import dev.drawethree.xprison.pickaxelevels.model.PickaxeLevel;
 import dev.drawethree.xprison.utils.compat.CompMaterial;
@@ -39,12 +40,14 @@ public abstract class XPrisonEnchantment implements Refundable {
 	private boolean refundEnabled;
 	private int refundGuiSlot;
 	private double refundPercentage;
+	private final LuckEnchant luckEnchant;
 
 	public XPrisonEnchantment(XPrisonEnchants plugin, int id) {
 		this.plugin = plugin;
 		this.id = id;
 		this.reloadDefaultAttributes();
 		this.reload();
+		this.luckEnchant = (LuckEnchant) plugin.getEnchantsRepository().getEnchantById(24);
 	}
 
 	private void reloadDefaultAttributes() {

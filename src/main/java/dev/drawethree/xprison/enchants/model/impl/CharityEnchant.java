@@ -47,10 +47,13 @@ public final class CharityEnchant extends XPrisonEnchantment {
         }
 
         double chance = getChanceToTrigger(enchantLevel);
-
+        if (this.getLuckEnchant().isPlayerLucky(e.getPlayer())) {
+            chance *= this.getLuckEnchant().getMultiplier();
+        }
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
+        this.getLuckEnchant().setPlayerLuck(e.getPlayer(), false);
 
         long amount = (long) createExpression(enchantLevel).evaluate();
 

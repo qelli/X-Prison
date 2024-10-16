@@ -57,6 +57,7 @@ public class EnchantsRepository {
 	}
 
 	public void loadDefaultEnchantments() {
+		register(new LuckEnchant(this.plugin));
 		register(new EfficiencyEnchant(this.plugin));
 		register(new UnbreakingEnchant(this.plugin));
 		register(new FortuneEnchant(this.plugin));
