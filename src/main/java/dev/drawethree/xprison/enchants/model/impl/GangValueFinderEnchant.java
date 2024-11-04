@@ -40,14 +40,10 @@ public final class GangValueFinderEnchant extends XPrisonEnchantment {
             return;
         }
 
-        double chance = getChanceToTrigger(enchantLevel);
-        if (this.getLuckEnchant().isPlayerLucky(e.getPlayer())) {
-            chance *= this.getLuckEnchant().getMultiplier();
-        }
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
-        this.getLuckEnchant().setPlayerLuck(e.getPlayer(), false);
 
         int amount = (int) createExpression(enchantLevel).evaluate();
         plugin.getCore().getGangs().getGangsManager().getPlayerGang(e.getPlayer()).ifPresent(gang -> gang.setValue(gang.getValue() + amount));

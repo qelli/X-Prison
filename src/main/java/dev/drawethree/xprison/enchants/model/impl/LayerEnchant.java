@@ -61,15 +61,11 @@ public final class LayerEnchant extends XPrisonEnchantment {
 
     @Override
     public void onBlockBreak(BlockBreakEvent e, int enchantLevel) {
-        double chance = getChanceToTrigger(enchantLevel);
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
 
-        if (this.getLuckEnchant().isPlayerLucky(e.getPlayer())) {
-            chance *= this.getLuckEnchant().getMultiplier();
-        }
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
-        this.getLuckEnchant().setPlayerLuck(e.getPlayer(), false);
 
         long startTime = Time.nowMillis();
         final Player p = e.getPlayer();

@@ -40,14 +40,12 @@ public abstract class XPrisonEnchantment implements Refundable {
 	private boolean refundEnabled;
 	private int refundGuiSlot;
 	private double refundPercentage;
-	private final LuckEnchant luckEnchant;
 
 	public XPrisonEnchantment(XPrisonEnchants plugin, int id) {
 		this.plugin = plugin;
 		this.id = id;
 		this.reloadDefaultAttributes();
 		this.reload();
-		this.luckEnchant = (LuckEnchant) plugin.getEnchantsRepository().getEnchantById(24);
 	}
 
 	private void reloadDefaultAttributes() {
@@ -81,6 +79,16 @@ public abstract class XPrisonEnchantment implements Refundable {
 	public abstract void onBlockBreak(BlockBreakEvent e, int enchantLevel);
 
 	public abstract double getChanceToTrigger(int enchantLevel);
+
+	public double getChanceToTriggerForPlayer(Player p, int enchantLevel) {
+		double chance = getChanceToTrigger(enchantLevel);
+
+		if(LuckEnchant.isPlayerLucky(p)) {
+			chance *= LuckEnchant.getMultiplier();
+		}
+
+		return chance;
+	}
 
 	public void reload() {
 		this.reloadDefaultAttributes();

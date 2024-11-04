@@ -47,15 +47,10 @@ public final class BlessingEnchant extends XPrisonEnchantment {
             return;
         }
 
-        double chance = getChanceToTrigger(enchantLevel);
-
-        if (this.getLuckEnchant().isPlayerLucky(e.getPlayer())) {
-            chance *= this.getLuckEnchant().getMultiplier();
-        }
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
-        this.getLuckEnchant().setPlayerLuck(e.getPlayer(), false);
 
         long amount = (long) createExpression(enchantLevel).evaluate();
 

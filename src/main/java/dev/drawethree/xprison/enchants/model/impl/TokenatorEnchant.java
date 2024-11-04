@@ -40,14 +40,10 @@ public final class TokenatorEnchant extends XPrisonEnchantment {
             return;
         }
 
-        double chance = getChanceToTrigger(enchantLevel);
-        if (this.getLuckEnchant().isPlayerLucky(e.getPlayer())) {
-            chance *= this.getLuckEnchant().getMultiplier();
-        }
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
-        this.getLuckEnchant().setPlayerLuck(e.getPlayer(), false);
 
         long randAmount = (long) createExpression(enchantLevel).evaluate();
         plugin.getCore().getTokens().getTokensManager().giveTokens(e.getPlayer(), randAmount, null, ReceiveCause.MINING);
