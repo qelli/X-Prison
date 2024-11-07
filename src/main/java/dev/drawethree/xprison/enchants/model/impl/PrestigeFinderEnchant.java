@@ -36,7 +36,7 @@ public final class PrestigeFinderEnchant extends XPrisonEnchantment {
 
     @Override
     public void onBlockBreak(BlockBreakEvent e, int enchantLevel) {
-        double chance = getChanceToTrigger(enchantLevel);
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }

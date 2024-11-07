@@ -33,12 +33,10 @@ public final class KeyallsEnchant extends XPrisonEnchantment {
 
     @Override
     public void onBlockBreak(BlockBreakEvent e, int enchantLevel) {
-        double chance = getChanceToTrigger(enchantLevel);
-
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
-
         String randomCmd = getRandomCommandToExecute();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), randomCmd.replace("%player%", e.getPlayer().getName()));
     }

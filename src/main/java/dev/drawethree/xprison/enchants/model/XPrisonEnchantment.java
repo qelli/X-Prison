@@ -1,6 +1,7 @@
 package dev.drawethree.xprison.enchants.model;
 
 import dev.drawethree.xprison.enchants.XPrisonEnchants;
+import dev.drawethree.xprison.enchants.model.impl.LuckEnchant;
 import dev.drawethree.xprison.pickaxelevels.XPrisonPickaxeLevels;
 import dev.drawethree.xprison.pickaxelevels.model.PickaxeLevel;
 import dev.drawethree.xprison.utils.compat.CompMaterial;
@@ -78,6 +79,16 @@ public abstract class XPrisonEnchantment implements Refundable {
 	public abstract void onBlockBreak(BlockBreakEvent e, int enchantLevel);
 
 	public abstract double getChanceToTrigger(int enchantLevel);
+
+	public double getChanceToTriggerForPlayer(Player p, int enchantLevel) {
+		double chance = getChanceToTrigger(enchantLevel);
+
+		if(LuckEnchant.isPlayerLucky(p)) {
+			chance *= LuckEnchant.getMultiplier();
+		}
+
+		return chance;
+	}
 
 	public void reload() {
 		this.reloadDefaultAttributes();

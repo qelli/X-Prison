@@ -40,8 +40,7 @@ public final class TokenatorEnchant extends XPrisonEnchantment {
             return;
         }
 
-        double chance = getChanceToTrigger(enchantLevel);
-
+        double chance = getChanceToTriggerForPlayer(e.getPlayer(), enchantLevel);
         if (chance < ThreadLocalRandom.current().nextDouble(100)) {
             return;
         }
