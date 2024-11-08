@@ -80,14 +80,8 @@ public abstract class XPrisonEnchantment implements Refundable {
 
 	public abstract double getChanceToTrigger(int enchantLevel);
 
-	public double getChanceToTriggerForPlayer(Player p, int enchantLevel) {
-		double chance = getChanceToTrigger(enchantLevel);
-
-		if(LuckEnchant.isPlayerLucky(p)) {
-			chance *= LuckEnchant.getMultiplier();
-		}
-
-		return chance;
+	public double getChanceToTrigger(Player p, int enchantLevel) {
+		return getChanceToTrigger(enchantLevel) * LuckEnchant.getMultiplier(p);
 	}
 
 	public void reload() {

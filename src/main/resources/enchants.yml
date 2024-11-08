@@ -626,6 +626,7 @@ enchants:
     OnDeactivate: 'Your luck wore off.'
     DisableMessages: false
     Multiplier: 1.5
+    Time: 5 MINUTES
     Description:
       - 'Chance of increasing the other enchantments percentages'
     Refund:
