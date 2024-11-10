@@ -2,6 +2,7 @@ package dev.drawethree.xprison.enchants.model.impl;
 
 import dev.drawethree.xprison.enchants.XPrisonEnchants;
 import dev.drawethree.xprison.enchants.model.XPrisonEnchantment;
+import dev.drawethree.xprison.enchants.utils.EnchantsConstants;
 import dev.drawethree.xprison.tokens.XPrisonTokens;
 import dev.drawethree.xprison.utils.player.PlayerUtils;
 import me.lucko.helper.utils.Players;
@@ -56,7 +57,7 @@ public final class CharityEnchant extends XPrisonEnchantment {
         for (Player p : Players.all()) {
             plugin.getCore().getEconomy().depositPlayer(p, amount);
 
-            if (!this.isMessagesEnabled()) {
+            if (!this.isMessagesEnabled() || p.hasPermission(EnchantsConstants.ENCHANTS_MUTE_PERM)) {
                 continue;
             }
 
