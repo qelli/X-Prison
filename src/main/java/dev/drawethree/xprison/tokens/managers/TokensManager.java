@@ -8,6 +8,7 @@ import dev.drawethree.xprison.tokens.api.events.PlayerTokensLostEvent;
 import dev.drawethree.xprison.tokens.api.events.PlayerTokensReceiveEvent;
 import dev.drawethree.xprison.tokens.api.events.XPrisonBlockBreakEvent;
 import dev.drawethree.xprison.tokens.model.BlockReward;
+import dev.drawethree.xprison.tokens.utils.TokensConstants;
 import dev.drawethree.xprison.utils.item.ItemStackBuilder;
 import dev.drawethree.xprison.utils.item.PrisonItem;
 import dev.drawethree.xprison.utils.misc.NumberUtils;
@@ -589,6 +590,9 @@ public class TokensManager {
 	}
 
 	public boolean hasOffTokenMessages(Player p) {
+		if (p.getPlayer().hasPermission(TokensConstants.TOKENS_MUTE_PERM)) {
+			return true;
+		}
 		return !this.tokenMessageOnPlayers.contains(p.getUniqueId());
 	}
 
