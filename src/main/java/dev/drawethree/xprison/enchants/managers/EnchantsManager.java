@@ -579,12 +579,11 @@ public class EnchantsManager {
 		ItemStack pickaxe = pickaxeBuilder.build();
 
 		for (Map.Entry<XPrisonEnchantment, Integer> entry : enchants.entrySet()) {
-			this.setEnchantLevel(target, pickaxe, entry.getKey(), entry.getValue());
+			pickaxe = this.setEnchantLevel(target, pickaxe, entry.getKey(), entry.getValue());
 		}
 
-		this.applyLoreToPickaxe(target, pickaxe);
-
 		if (level > 0) {
+			// TODO: Add an extra validation layer by checking if level is configured in pickaxe-levels.yml
 			final PrisonItem pItem = new PrisonItem(pickaxe);
 			pItem.setLevel(level);
 			if (blocks > 0) {
@@ -592,6 +591,8 @@ public class EnchantsManager {
 			}
 			pickaxe = pItem.load();
 		}
+
+		pickaxe = this.applyLoreToPickaxe(target, pickaxe);
 
 		if (target == null && sender instanceof Player) {
 			target = (Player) sender;
