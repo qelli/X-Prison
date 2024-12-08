@@ -128,6 +128,7 @@ public class EnchantsManager {
 		for (String s : pickaxeLore) {
 			s = s.replace("%Blocks%", String.valueOf(blocksBroken));
 			s = s.replace("%Durability%", durability);
+			s = s.replace("%PickaxeOwner%", prisonItem.getOwnerName());
 
 			if (pickaxeLevels) {
 				s = s.replace("%Blocks_Required%", nextLevel == null ? "∞" : String.valueOf(nextLevel.getBlocksRequired()));
