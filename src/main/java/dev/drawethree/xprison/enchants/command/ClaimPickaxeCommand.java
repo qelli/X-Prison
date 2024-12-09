@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ClaimPickaxeCommand {
 
-	private static final String COMMAND_NAME = "value";
+	private static final String COMMAND_NAME = "claimpickaxe";
 
 	private final XPrisonEnchants plugin;
 
@@ -38,7 +38,7 @@ public class ClaimPickaxeCommand {
 					}
 
 					PrisonItem item = new PrisonItem(pickAxe);
-					if (!item.getOwnerName().isEmpty()) {
+					if (item.getOwnerName() != null) {
 						PlayerUtils.sendMessage(c.sender(), this.plugin.getEnchantsConfig().getMessage("claim_pickaxe_already_claimed").replace("%owner%", item.getOwnerName()));
 						return;
 					}
