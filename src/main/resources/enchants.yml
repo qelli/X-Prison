@@ -641,12 +641,12 @@ enchants:
 # Format of every pickaxe that has UPC Enchants on it
 # %Enchant-X% represents the name + level of specific enchant (X = id)
 Pickaxe:
-  persist-external-lore: false
   # NUMBER = All levels as numbers
   # ROMAN = All levels as roman numbers
   # FIXED = First 10 levels as roman,
   level-format: NUMBER
   excluded-format: "&7[&c-&7] &8%Enchant% %Level%"
+  default-owner-name: "&4Unclaimed"
   lore:
     - '&8&m------------------------'
     - '&e&lOWNER: &f%PickaxeOwner%'
