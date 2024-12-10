@@ -129,7 +129,7 @@ public class EnchantsManager {
 			s = s.replace("%Blocks%", String.valueOf(blocksBroken));
 			s = s.replace("%Durability%", durability);
 			if (prisonItem.getOwnerName() == null) {
-				s = s.replace("%PickaxeOwner%", "None");
+				s = s.replace("%PickaxeOwner%", plugin.getEnchantsConfig().getDefaultOwnerName());
 			} else {
 				s = s.replace("%PickaxeOwner%", prisonItem.getOwnerName());
 			}
