@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class GemsPayCommand extends GemsCommand {
 
@@ -69,7 +68,11 @@ public final class GemsPayCommand extends GemsCommand {
 		List<String> list = new ArrayList<>();
 
 		if (args.size() == 1) {
-			list = Players.all().stream().map(Player::getName).collect(Collectors.toList());
+			for (Player player : Players.all()) {
+				if (!player.hasPermission("xprison.vanish")) {
+					list.add(player.getName());
+				}
+			}
 		}
 
 		return list;
