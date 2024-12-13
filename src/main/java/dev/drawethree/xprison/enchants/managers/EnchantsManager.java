@@ -90,6 +90,7 @@ public class EnchantsManager {
 		long blocksBroken = getBlocksBroken(item);
 		final PrisonItem prisonItem = new PrisonItem(item);
 		Map<XPrisonEnchantment, Integer> enchants = prisonItem.getEnchants(getEnchantsRepository());
+		String owner = prisonItem.getOwnerName();
 
 		List<String> pickaxeLore = this.plugin.getEnchantsConfig().getPickaxeLore();
 
@@ -128,6 +129,7 @@ public class EnchantsManager {
 		for (String s : pickaxeLore) {
 			s = s.replace("%Blocks%", String.valueOf(blocksBroken));
 			s = s.replace("%Durability%", durability);
+			s = s.replace("%PickaxeOwner%", owner == null ? this.plugin.getEnchantsConfig().getDefaultOwnerName() : owner);
 
 			if (pickaxeLevels) {
 				s = s.replace("%Blocks_Required%", nextLevel == null ? "∞" : String.valueOf(nextLevel.getBlocksRequired()));
@@ -568,7 +570,7 @@ public class EnchantsManager {
 		return sum;
 	}
 
-	// /givepickaxe <player> <enchant:18=1;...> <name>
+	// /givepickaxe <player> <enchant:18=1;...> <level> <broken_blocks> <name>
 	public void givePickaxe(Player target, Map<XPrisonEnchantment, Integer> enchants, String pickaxeName, CommandSender sender, int level, int blocks) {
 		ItemStackBuilder pickaxeBuilder = ItemStackBuilder.of(Material.DIAMOND_PICKAXE);
 
@@ -582,15 +584,17 @@ public class EnchantsManager {
 			pickaxe = this.setEnchantLevel(target, pickaxe, entry.getKey(), entry.getValue());
 		}
 
+		final PrisonItem pItem = new PrisonItem(pickaxe);
+		pItem.setOwnerName(target.getName());
+		// TODO: Add an extra validation layer by checking if level is configured in pickaxe-levels.yml
 		if (level > 0) {
-			// TODO: Add an extra validation layer by checking if level is configured in pickaxe-levels.yml
-			final PrisonItem pItem = new PrisonItem(pickaxe);
 			pItem.setLevel(level);
-			if (blocks > 0) {
-				pItem.addBrokenBlocks(blocks);
-			}
-			pickaxe = pItem.load();
 		}
+		// TODO: Calculate level based on broken blocks
+		if (blocks > 0) {
+			pItem.addBrokenBlocks(blocks);
+		}
+		pickaxe = pItem.load();
 
 		pickaxe = this.applyLoreToPickaxe(target, pickaxe);
 
@@ -621,6 +625,10 @@ public class EnchantsManager {
 
 		CompMaterial material = this.plugin.getEnchantsConfig().getFirstJoinPickaxeMaterial();
 		ItemStack item = ItemStackBuilder.of(material.toItem()).name(pickaxeName).build();
+
+		PrisonItem prisonItem = new PrisonItem(item);
+		prisonItem.setOwnerName(player.getName());
+		item = prisonItem.load();
 
 		List<String> firstJoinPickaxeEnchants = this.plugin.getEnchantsConfig().getFirstJoinPickaxeEnchants();
 
