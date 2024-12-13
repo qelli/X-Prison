@@ -90,6 +90,7 @@ public class EnchantsManager {
 		long blocksBroken = getBlocksBroken(item);
 		final PrisonItem prisonItem = new PrisonItem(item);
 		Map<XPrisonEnchantment, Integer> enchants = prisonItem.getEnchants(getEnchantsRepository());
+		String owner = prisonItem.getOwnerName();
 
 		List<String> pickaxeLore = this.plugin.getEnchantsConfig().getPickaxeLore();
 
@@ -128,11 +129,7 @@ public class EnchantsManager {
 		for (String s : pickaxeLore) {
 			s = s.replace("%Blocks%", String.valueOf(blocksBroken));
 			s = s.replace("%Durability%", durability);
-			if (prisonItem.getOwnerName() == null) {
-				s = s.replace("%PickaxeOwner%", plugin.getEnchantsConfig().getDefaultOwnerName());
-			} else {
-				s = s.replace("%PickaxeOwner%", prisonItem.getOwnerName());
-			}
+			s = s.replace("%PickaxeOwner%", owner == null ? this.plugin.getEnchantsConfig().getDefaultOwnerName() : owner);
 
 			if (pickaxeLevels) {
 				s = s.replace("%Blocks_Required%", nextLevel == null ? "∞" : String.valueOf(nextLevel.getBlocksRequired()));
@@ -587,16 +584,17 @@ public class EnchantsManager {
 			pickaxe = this.setEnchantLevel(target, pickaxe, entry.getKey(), entry.getValue());
 		}
 
+		final PrisonItem pItem = new PrisonItem(pickaxe);
+		pItem.setOwnerName(target.getName());
+		// TODO: Add an extra validation layer by checking if level is configured in pickaxe-levels.yml
 		if (level > 0) {
-			// TODO: Add an extra validation layer by checking if level is configured in pickaxe-levels.yml
-			final PrisonItem pItem = new PrisonItem(pickaxe);
 			pItem.setLevel(level);
-			pItem.setOwnerName(target.getName());
-			if (blocks > 0) {
-				pItem.addBrokenBlocks(blocks);
-			}
-			pickaxe = pItem.load();
 		}
+		// TODO: Calculate level based on broken blocks
+		if (blocks > 0) {
+			pItem.addBrokenBlocks(blocks);
+		}
+		pickaxe = pItem.load();
 
 		pickaxe = this.applyLoreToPickaxe(target, pickaxe);
 

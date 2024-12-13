@@ -30,7 +30,7 @@ messages:
   value_value: "&e&lVALUE &8» &f%player%'s &7Pickaxe Value: &f%tokens% Tokens&7."
   value_cooldown: "&e&lVALUE &8» &7Please wait &f%time% Seconds&7 before using this command again."
   claim_pickaxe_no_permission: "&e&lPICKAXE &8» &cYou do not have permission to claim pickaxes."
-  claim_pickaxe_cooldown: "&e&lPICKAXE &8» &cYou must wait &f%time% &cbefore running this command again."
+  claim_pickaxe_cooldown: "&e&lPICKAXE &8» &cYou must wait &f%time% seconds &cbefore running this command again."
   claim_pickaxe_no_pickaxe: "&e&lPICKAXE &8» &cCouldn't find a pickaxe. Perhaps you should hold one?"
   claim_pickaxe_already_claimed: "&e&lPICKAXE &8» &cThis pickaxe is already claimed by %owner%."
   claim_pickaxe_success: "&e&lPICKAXE &8» &7You have successfully claimed this pickaxe."
