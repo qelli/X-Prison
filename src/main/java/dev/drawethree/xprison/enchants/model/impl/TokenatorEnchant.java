@@ -45,7 +45,8 @@ public final class TokenatorEnchant extends XPrisonEnchantment {
             return;
         }
 
-        long randAmount = (long) createExpression(enchantLevel).evaluate();
+        long playerPrestige = this.plugin.getCore().getPrestiges().getPrestigeManager().getPlayerPrestige(e.getPlayer()).getId();
+        long randAmount = (long) createExpression(enchantLevel, playerPrestige).evaluate();
         plugin.getCore().getTokens().getTokensManager().giveTokens(e.getPlayer(), randAmount, null, ReceiveCause.MINING);
     }
 
@@ -61,11 +62,13 @@ public final class TokenatorEnchant extends XPrisonEnchantment {
         this.amountToGiveExpression = plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".Amount-To-Give");
     }
 
-    private Expression createExpression(int level) {
+    private Expression createExpression(int level, long prestige) {
         return new ExpressionBuilder(this.amountToGiveExpression)
                 .variables("level")
+                .variables("prestige")
                 .build()
-                .setVariable("level", level);
+                .setVariable("level", level)
+                .setVariable("prestige", prestige);
     }
 
     @Override

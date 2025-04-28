@@ -38,7 +38,8 @@ public final class SalaryEnchant extends XPrisonEnchantment {
             return;
         }
 
-        double randAmount = createExpression(enchantLevel).evaluate();
+        long playerPrestige = this.plugin.getCore().getPrestiges().getPrestigeManager().getPlayerPrestige(e.getPlayer()).getId();
+        double randAmount = createExpression(enchantLevel, playerPrestige).evaluate();
 
         plugin.getCore().getEconomy().depositPlayer(e.getPlayer(), randAmount);
 
@@ -60,11 +61,13 @@ public final class SalaryEnchant extends XPrisonEnchantment {
         this.amountToGiveExpression = plugin.getEnchantsConfig().getYamlConfig().getString("enchants." + id + ".Amount-To-Give");
     }
 
-    private Expression createExpression(int level) {
+    private Expression createExpression(int level, long prestige) {
         return new ExpressionBuilder(this.amountToGiveExpression)
                 .variables("level")
+                .variables("prestige")
                 .build()
-                .setVariable("level", level);
+                .setVariable("level", level)
+                .setVariable("prestige", prestige);
     }
 
     @Override
