@@ -370,7 +370,7 @@ enchants:
     Increase-Cost-by: 35
     Max: 500
     Chance: 0.2
-    Amount-To-Give: "level * 1000"
+    Amount-To-Give: "level * (prestige * 1000)"
     Cost: 35
     Description:
       - '&7&o(( Ability to receive more money while mining ))'
@@ -407,7 +407,7 @@ enchants:
     Increase-Cost-by: 6
     Max: 500
     Chance: 0.2
-    Amount-To-Give: "level * 2"
+    Amount-To-Give: "level * (prestige * 2)"
     Cost: 12
     Description:
       - '&7&o(( Ability to gain more tokens while mining ))'
